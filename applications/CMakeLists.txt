@@ -25,5 +25,5 @@ target_link_libraries(tests
 #standard include directories for our tests target
 target_include_directories(tests PRIVATE
 						   ${CMAKE_SOURCE_DIR}/framework
-						   ${CMAKE_SOURCE_DIR}/external/catch2
+						   ${CMAKE_SOURCE_DIR}/external/doctest
 )
