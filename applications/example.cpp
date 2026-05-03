@@ -1,4 +1,4 @@
-#include <vec2.hpp> //access to our own buw::Vec2 datatype
+#include "vec2.hpp" //access to our own buw::Vec2 datatype
 #include <window.hpp> //access to our own buw::Window datatype
 
 #include <GLFW/glfw3.h> //access to GLFW key and mouse constants which we did not wrap further 
