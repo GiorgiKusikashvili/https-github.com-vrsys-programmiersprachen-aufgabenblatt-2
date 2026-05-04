@@ -10,6 +10,13 @@ namespace buw {
 		 */
 		float x=0.0f;
 		float y=0.0f;
+
+		Vec2& operator+=(Vec2 const& v);
+		Vec2& operator-=(Vec2 const& v);
+		Vec2& operator*=(double s);
+		Vec2& operator/=(double s);
+
+		float add_values() const; // deklaration!!! Nur zum Anschauen. brauchen wir für aufgabenlösen nicht
 	};
 
 
