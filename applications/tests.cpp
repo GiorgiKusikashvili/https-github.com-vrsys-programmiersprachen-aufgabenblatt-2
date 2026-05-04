@@ -30,6 +30,21 @@ TEST_CASE("vec2  Aggregatinitialisierung")
   CHECK(b.x == doctest::Approx(5.1f));
   CHECK(b.y == doctest::Approx(-9.3f));
 }
+TEST_CASE("vec2  Addition")
+{
+  buw::Vec2 b{3.2f, 1.2f};
+  CHECK(a.x == 6.4f);
+  CHECK(a.y == 2.4f);
+
+  buw::Vec2 b{-3.2f, -1.2f};
+  b+=b;
+  CHECK(a.x == -6.4f);
+  CHECK(a.y == -2.4f);
+
+  buw::Vec2 b{1, -1};
+  CHECK(a.x == 2);
+  CHECK(a.y == -2);
+}
 
 int main(int argc, char *argv[])
 {

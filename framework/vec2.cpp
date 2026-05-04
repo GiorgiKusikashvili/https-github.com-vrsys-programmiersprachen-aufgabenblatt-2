@@ -29,7 +29,7 @@ namespace buw {
 
     float Vec2::add_values() const{
         return x + y;     
-    } // Definition!!! Nur zum Anschauen. brauchen wir für aufgabenlösen nicht
+    } // Definition!!! Nur zum Anschauen. brauchen wir für aufgabenlösung nicht
 }
 
 
