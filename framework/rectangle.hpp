@@ -4,6 +4,9 @@
 #include "color.hpp"
 
 namespace buw {
+
+    class Window;
+
     class Rectangle
     {
     public:
@@ -15,6 +18,7 @@ namespace buw {
         Rectangle(double min_x, double min_y, double max_x, double max_y, Color const& color);
 
         double circumference() const;
+        void draw(Window& window) const;
 
         // Öffentliche Attribute
         Vec2 min;  // linke obere Ecke

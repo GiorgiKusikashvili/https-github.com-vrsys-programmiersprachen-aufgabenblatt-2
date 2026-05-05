@@ -5,6 +5,7 @@
 
 namespace buw {
 
+    class Window;
     class Circle
     {
     public:
@@ -16,7 +17,8 @@ namespace buw {
         Circle(Vec2 const& center, double radius, Color const& color);
 
         double circumference() const;
-
+        void draw(Window& window) const;
+        
         // Öffentliche Attribute weil wir keine Getter/Setter brauchen
         Vec2 center;
         double radius;
