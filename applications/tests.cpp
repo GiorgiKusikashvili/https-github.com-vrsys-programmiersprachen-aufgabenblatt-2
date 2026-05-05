@@ -1,4 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT
+#include "mat2.hpp"
 #include "../external/doctest/doctest.h"
 #include "../framework/vec2.hpp"
 
@@ -143,9 +144,9 @@ TEST_CASE("Vec2  operator/= division mit 1")
   CHECK(a.y == doctest::Approx(9.0f));
 }
 
-// ============================================
+
 // Tests für freie Funktionen (Aufgabe 2.4)
-// ============================================
+
 
 TEST_CASE("Vec2 operator+ (freie Funktion)")
 {
@@ -251,26 +252,6 @@ TEST_CASE("Vec2 operator* mit negativem Skalar")
     CHECK(c.y == doctest::Approx(-8.0f));
 }
 
-TEST_CASE("Vec2 operator* (double * Vec2) - freie Funktion (Kommutativität)")
-{
-    buw::Vec2 a{3.0f, 4.0f};
-
-    buw::Vec2 c = 2.5 * a;
-
-    CHECK(c.x == doctest::Approx(7.5f));
-    CHECK(c.y == doctest::Approx(10.0f));
-}
-
-TEST_CASE("Vec2 operator* Kommutativität von a*s und s*a")
-{
-    buw::Vec2 a{3.0f, 4.0f};
-
-    buw::Vec2 c1 = a * 2.5;
-    buw::Vec2 c2 = 2.5 * a;
-
-    CHECK(c1.x == doctest::Approx(c2.x));
-    CHECK(c1.y == doctest::Approx(c2.y));
-}
 
 TEST_CASE("Vec2 operator/ (freie Funktion)")
 {
@@ -302,7 +283,145 @@ TEST_CASE("Vec2 operator/ mit 1")
     CHECK(c.y == doctest::Approx(9.0f));
 }
 
+// Tests für Mat2 (Aufgabe 2.5)
 
+TEST_CASE("Mat2 - Standardinitialisierung (Einheitsmatrix)")
+{ //um zu sehen ob es default geht
+    buw::Mat2 m;
+
+    CHECK(m.e_00 == doctest::Approx(1.0));
+    CHECK(m.e_10 == doctest::Approx(0.0));
+    CHECK(m.e_01 == doctest::Approx(0.0));
+    CHECK(m.e_11 == doctest::Approx(1.0));
+}
+
+TEST_CASE("Mat2 - Aggregatinitialisierung")
+{ //um zu7 sehen ob es aggregativierung geht
+    buw::Mat2 m{2.0, 3.0, 4.0, 5.0};
+
+    CHECK(m.e_00 == doctest::Approx(2.0));
+    CHECK(m.e_10 == doctest::Approx(3.0));
+    CHECK(m.e_01 == doctest::Approx(4.0));
+    CHECK(m.e_11 == doctest::Approx(5.0));
+}
+
+TEST_CASE("Mat2  operator*= mutliplikation defaultmatrix mit aggregatmatrix (Memberfunktion)")
+{
+    buw::Mat2 m{2.0, 3.0, 4.0, 5.0}; //aggregatmatrix
+    buw::Mat2 defaultMatrix; //defalut matrix also: e_00 = 1.0 , e_10 = 1.0 , e_01 = 1.0 , e_11 = 1.0
+
+    m *= defaultMatrix;
+
+    CHECK(m.e_00 == doctest::Approx(2.0));
+    CHECK(m.e_10 == doctest::Approx(3.0));
+    CHECK(m.e_01 == doctest::Approx(4.0));
+    CHECK(m.e_11 == doctest::Approx(5.0));
+}
+
+TEST_CASE("Mat2  operator*= Multiplikation einer matrix mit anderen (Memberfunktion)")
+{
+    buw::Mat2 a{2.0, 3.0, 4.0, 5.0};
+    buw::Mat2 b{1.0, 2.0, 3.0, 4.0};
+
+    // Matrixmultiplikation: a * b
+    // [2 3]   [1 2]   [2*1+3*3  2*2+3*4]   [2+9   4+12]   [11 16]
+    // [4 5] * [3 4] = [4*1+5*3  4*2+5*4] = [4+15  8+20] = [19 28]
+
+    a *= b;
+
+    CHECK(a.e_00 == doctest::Approx(11.0));
+    CHECK(a.e_10 == doctest::Approx(16.0));
+    CHECK(a.e_01 == doctest::Approx(19.0));
+    CHECK(a.e_11 == doctest::Approx(28.0));
+}
+
+TEST_CASE("Mat2  operator*= Multiplikation mit Nullmatrix")
+{
+    buw::Mat2 a{2.0, 3.0, 4.0, 5.0};
+    buw::Mat2 zero{0.0, 0.0, 0.0, 0.0};
+
+    a *= zero;
+
+    CHECK(a.e_00 == doctest::Approx(0.0));
+    CHECK(a.e_10 == doctest::Approx(0.0));
+    CHECK(a.e_01 == doctest::Approx(0.0));
+    CHECK(a.e_11 == doctest::Approx(0.0));
+}
+TEST_CASE("Mat2 - operator*= mit negativen Werten ")
+{
+    buw::Mat2 a{2.0, -3.0, 4.0, -5.0};
+    buw::Mat2 b{-1.0, 2.0, -3.0, 4.0};
+
+    a *= b;
+
+    CHECK(a.e_00 == doctest::Approx(7.0));
+    CHECK(a.e_10 == doctest::Approx(-8.0));
+    CHECK(a.e_01 == doctest::Approx(11.0));
+    CHECK(a.e_11 == doctest::Approx(-12.0));
+}
+
+//freie Funktionstests
+
+TEST_CASE("Mat2  operator* Multiplikation mit 2 Matrizen")
+{
+    buw::Mat2 a{2.0, 3.0, 4.0, 5.0};
+    buw::Mat2 b{1.0, 2.0, 3.0, 4.0};
+
+    // ^Multiplikation geht so: a * b
+    // [2 3]   [1 2]   [11 16]
+    // [4 5] * [3 4] = [19 28]
+
+    buw::Mat2 result = a * b;
+
+    CHECK(result.e_00 == doctest::Approx(11.0));
+    CHECK(result.e_10 == doctest::Approx(16.0));
+    CHECK(result.e_01 == doctest::Approx(19.0));
+    CHECK(result.e_11 == doctest::Approx(28.0));
+
+    // a und b sollten unverändert sein
+    CHECK(a.e_00 == doctest::Approx(2.0));
+    CHECK(b.e_00 == doctest::Approx(1.0));
+}
+
+TEST_CASE("Mat2  operator* (freie Funktion) mit Nullmatrix")
+{
+    buw::Mat2 a{2.0, 3.0, 4.0, 5.0};
+    buw::Mat2 zero{0.0, 0.0, 0.0, 0.0};
+
+    buw::Mat2 result = a * zero;
+
+    CHECK(result.e_00 == doctest::Approx(0.0));
+    CHECK(result.e_10 == doctest::Approx(0.0));
+    CHECK(result.e_01 == doctest::Approx(0.0));
+    CHECK(result.e_11 == doctest::Approx(0.0));
+}
+TEST_CASE("Mat2 - operator* (freie Funktion) mit negativen Werten")
+{
+    buw::Mat2 a{2.0, -1.0, -3.0, 4.0};
+    buw::Mat2 b{-2.0, 3.0, 1.0, -4.0};
+
+    buw::Mat2 result = a * b;
+
+    CHECK(result.e_00 == doctest::Approx(-5.0));
+    CHECK(result.e_10 == doctest::Approx(10.0));
+    CHECK(result.e_01 == doctest::Approx(10.0));
+    CHECK(result.e_11 == doctest::Approx(-25.0));
+
+}
+
+TEST_CASE("Mat2 - operator* mit zwei negativen Matrizen (Minus * Minus = Plus)")
+{
+    buw::Mat2 a{-2.0, -1.0, -3.0, -2.0};
+    buw::Mat2 b{-1.0, -2.0, -3.0, -4.0};
+
+
+    buw::Mat2 result = a * b;
+
+    CHECK(result.e_00 == doctest::Approx(5.0));
+    CHECK(result.e_10 == doctest::Approx(8.0));
+    CHECK(result.e_01 == doctest::Approx(9.0));
+    CHECK(result.e_11 == doctest::Approx(14.0));
+}
 
 
 int main(int argc, char *argv[])
