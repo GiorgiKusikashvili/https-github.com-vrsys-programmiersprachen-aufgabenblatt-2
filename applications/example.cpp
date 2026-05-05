@@ -19,34 +19,24 @@ int main(int argc, char* argv[])
 
     while (!win.should_close())
     {
-        // Mausposition abfragen
+        // Mausposition
         auto mouse_pos = win.mouse_position();
         buw::Vec2 mouse(mouse_pos.first, mouse_pos.second);
 
-        // Kreis zeichnen: dicker wenn Maus drin
+        // Kreis: dicker wenn Maus drin
         if (circle.is_inside(mouse))
-        {
-            circle.draw(win, 4.0);  // doppelt so dick (2.0 * 2)
-        }
+            circle.draw(win, 4.0);  // doppelte Dicke
         else
-        {
             circle.draw(win, 2.0);  // normale Dicke
-        }
 
-        // Rechteck zeichnen: dicker wenn Maus drin
+        // Rechteck: dicker wenn Maus drin
         if (rectangle.is_inside(mouse))
-        {
             rectangle.draw(win, 4.0);
-        }
         else
-        {
             rectangle.draw(win, 2.0);
-        }
 
         if (win.get_key(GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        {
             win.close();
-        }
 
         win.update();
     }
