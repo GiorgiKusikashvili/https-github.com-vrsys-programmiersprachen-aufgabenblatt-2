@@ -1,7 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT
-#include "mat2.hpp"
 #include "../external/doctest/doctest.h"
 #include "../framework/vec2.hpp"
+#include "mat2.hpp"
+#include <color.hpp>
 
 int factorial(int n)
 {
@@ -566,6 +567,69 @@ TEST_CASE("make_rotation_mat2 - Negative Winkel (Rotation gegen Uhrzeigersinn)")
     CHECK(result.x == doctest::Approx(0.0f).epsilon(0.0001));
     CHECK(result.y == doctest::Approx(-1.0f).epsilon(0.0001));
 }
+
+
+
+
+
+// Tests für Color (Aufgabe 2.7)
+
+
+
+TEST_CASE("Color  Standardinitialisierung also Grau")
+{
+    buw::Color c;
+
+    CHECK(c.r == doctest::Approx(0.5));
+    CHECK(c.g == doctest::Approx(0.5));
+    CHECK(c.b == doctest::Approx(0.5));
+}
+
+TEST_CASE("Color  Aggregatinitialisierung mit roter Farbe")
+{
+    buw::Color c{1.0, 0.0, 0.0};
+
+    CHECK(c.r == doctest::Approx(1.0));
+    CHECK(c.g == doctest::Approx(0.0));
+    CHECK(c.b == doctest::Approx(0.0));
+}
+
+TEST_CASE("Color - Aggregatinitialisierung mit grüner Farbe")
+{
+    buw::Color c{0.0, 1.0, 0.0};
+
+    CHECK(c.r == doctest::Approx(0.0));
+    CHECK(c.g == doctest::Approx(1.0));
+    CHECK(c.b == doctest::Approx(0.0));
+}
+
+TEST_CASE("Color - Aggregatinitialisierung mit blauer Farbe")
+{
+    buw::Color c{0.0, 0.0, 1.0};
+
+    CHECK(c.r == doctest::Approx(0.0));
+    CHECK(c.g == doctest::Approx(0.0));
+    CHECK(c.b == doctest::Approx(1.0));
+}
+
+TEST_CASE("Color - Aggregatinitialisierung mit weißer Farbe")
+{
+    buw::Color c{1.0, 1.0, 1.0};
+
+    CHECK(c.r == doctest::Approx(1.0));
+    CHECK(c.g == doctest::Approx(1.0));
+    CHECK(c.b == doctest::Approx(1.0));
+}
+
+TEST_CASE("Color - Aggregatinitialisierung mit schwarzer Farbe")
+{
+    buw::Color c{0.0, 0.0, 0.0};
+
+    CHECK(c.r == doctest::Approx(0.0));
+    CHECK(c.g == doctest::Approx(0.0));
+    CHECK(c.b == doctest::Approx(0.0));
+}
+
 
 
 int main(int argc, char *argv[])
