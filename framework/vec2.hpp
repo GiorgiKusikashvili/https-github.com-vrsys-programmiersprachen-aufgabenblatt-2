@@ -18,6 +18,11 @@ namespace buw {
 
 
 	};
+	Vec2 operator+(Vec2 const& u, Vec2 const& v);
+	Vec2 operator-(Vec2 const& u, Vec2 const& v);
+	Vec2 operator*(Vec2 const& v, double s);
+	Vec2 operator/(Vec2 const& v, double s);
+	Vec2 operator*(double s, Vec2 const& v);
 
 
 }

@@ -28,6 +28,39 @@ namespace buw {
     }
 
 
+	Vec2 operator+(Vec2 const& u, Vec2 const& v)
+	{
+		Vec2 result = u;
+		result += v;
+		return result;
+	}
+
+	Vec2 operator-(Vec2 const& u, Vec2 const& v)
+	{
+		Vec2 result = u;
+		result -= v;
+		return result;
+	}
+
+	Vec2 operator*(Vec2 const& v, double s)
+	{
+		Vec2 result = v;
+		result *= s;
+		return result;
+	}
+
+	Vec2 operator/(Vec2 const& v, double s)
+	{
+		Vec2 result = v;
+		result /= s;
+		return result;
+	}
+
+	Vec2 operator*(double s, Vec2 const& v)
+	{
+		return v * s;
+	}
+
 }
 
 
