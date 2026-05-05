@@ -16,7 +16,7 @@ namespace buw {
 		Vec2& operator*=(double s);
 		Vec2& operator/=(double s);
 
-		float add_values() const; // deklaration!!! Nur zum Anschauen. brauchen wir für aufgabenlösung nicht
+
 	};
 
 
