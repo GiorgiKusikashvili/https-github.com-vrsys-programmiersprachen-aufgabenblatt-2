@@ -424,6 +424,150 @@ TEST_CASE("Mat2 - operator* mit zwei negativen Matrizen (Minus * Minus = Plus)")
 }
 
 
+
+// Tests für Mat2 * Vec2 (Aufgabe 2.6)
+TEST_CASE("Mat2 * Vec2 ")
+{
+
+    buw::Mat2 m1{2.0, 0.0, 0.0, 2.0};
+    buw::Vec2 v{3.0f, 4.0f};
+
+    buw::Vec2 result = m1 * v;
+
+    // [2 0]   [3]   [6]
+    // [0 2] * [4] = [8]
+    CHECK(result.x == doctest::Approx(6.0f));
+    CHECK(result.y == doctest::Approx(8.0f));
+}
+
+TEST_CASE("Mat2 * Vec2")
+{
+    buw::Mat2 m1{2.0, 0.0, 0.0, 3.0};
+    buw::Vec2 v{3.0f, 4.0f};
+
+    buw::Vec2 result = m1 * v;
+
+    CHECK(result.x == doctest::Approx(6.0f));
+    CHECK(result.y == doctest::Approx(12.0f));
+}
+
+TEST_CASE("Mat2 * Vec2 ")
+{
+
+    buw::Mat2 m1{1.0, 2.0, 0.0, 1.0};
+    buw::Vec2 v{2.0f, 3.0f};
+
+    buw::Vec2 result = m1 * v;
+
+    // [1 2]   [2]   [2 + 6]   [8]
+    // [0 1] * [3] = [0 + 3] = [3]
+    CHECK(result.x == doctest::Approx(8.0f));
+    CHECK(result.y == doctest::Approx(3.0f));
+}
+
+TEST_CASE("Mat2 * Vec2 - Allgemeine Matrix")
+{
+    buw::Mat2 m{2.0, 3.0, 4.0, 5.0};
+    buw::Vec2 v{1.0f, 2.0f};
+
+    buw::Vec2 result = m * v;
+
+    // [2 3]   [1]   [2*1 + 3*2]   [2 + 6]   [8]
+    // [4 5] * [2] = [4*1 + 5*2] = [4 + 10] = [14]
+    CHECK(result.x == doctest::Approx(8.0f));
+    CHECK(result.y == doctest::Approx(14.0f));
+}
+
+TEST_CASE("Mat2 * Vec2 - Mit Nullmatrix")
+{
+    buw::Mat2 zero{0.0, 0.0, 0.0, 0.0};
+    buw::Vec2 v{3.0f, 4.0f};
+
+    buw::Vec2 result = zero * v;
+
+    CHECK(result.x == doctest::Approx(0.0f));
+    CHECK(result.y == doctest::Approx(0.0f));
+}
+
+TEST_CASE("Mat2 * Vec2 - Mit negativen Werten")
+{
+    buw::Mat2 m{-2.0, 3.0, -4.0, 5.0};
+    buw::Vec2 v{1.0f, -2.0f};
+
+    buw::Vec2 result = m * v;
+
+    // [-2  3]   [1]   [-2*1 + 3*(-2)]   [-2 - 6]   [-8]
+    // [-4  5] * [-2] = [-4*1 + 5*(-2)] = [-4 - 10] = [-14]
+    CHECK(result.x == doctest::Approx(-8.0f));
+    CHECK(result.y == doctest::Approx(-14.0f));
+}
+
+
+
+
+
+// Tests für make_rotation_mat2 (Aufgabe 2.6)
+
+
+
+TEST_CASE("make_rotation_mat2 - Rotation um 90° (π/2)")
+{
+    double phi = 3.141592653589793 / 2.0; // π/2
+    buw::Mat2 rot = buw::make_rotation_mat2(phi);
+
+    // Rotationsmatrix für 90°:
+    // [cos(90°) -sin(90°)]   [0  -1]
+    // [sin(90°)  cos(90°)] = [1   0]
+    CHECK(rot.e_00 == doctest::Approx(0.0).epsilon(0.0001));
+    CHECK(rot.e_10 == doctest::Approx(-1.0).epsilon(0.0001));
+    CHECK(rot.e_01 == doctest::Approx(1.0).epsilon(0.0001));
+    CHECK(rot.e_11 == doctest::Approx(0.0).epsilon(0.0001));
+}
+
+TEST_CASE("make_rotation_mat2 - Rotation um 180° (π)")
+{
+    double phi = 3.141592653589793; // π
+    buw::Mat2 rot = buw::make_rotation_mat2(phi);
+
+    // Rotationsmatrix für 180°:
+    // [cos(180°) -sin(180°)]   [-1   0]
+    // [sin(180°)  cos(180°)] = [ 0  -1]
+    CHECK(rot.e_00 == doctest::Approx(-1.0).epsilon(0.0001));
+    CHECK(rot.e_10 == doctest::Approx(0.0).epsilon(0.0001));
+    CHECK(rot.e_01 == doctest::Approx(0.0).epsilon(0.0001));
+    CHECK(rot.e_11 == doctest::Approx(-1.0).epsilon(0.0001));
+}
+
+TEST_CASE("make_rotation_mat2 - Rotation um 270° (3π/2)")
+{
+    double phi = 3.0 * 3.141592653589793 / 2.0; // 3π/2
+    buw::Mat2 rot = buw::make_rotation_mat2(phi);
+
+    // Rotationsmatrix für 270°:
+    // [cos(270°) -sin(270°)]   [0   1]
+    // [sin(270°)  cos(270°)] = [-1  0]
+    CHECK(rot.e_00 == doctest::Approx(0.0).epsilon(0.0001));
+    CHECK(rot.e_10 == doctest::Approx(1.0).epsilon(0.0001));
+    CHECK(rot.e_01 == doctest::Approx(-1.0).epsilon(0.0001));
+    CHECK(rot.e_11 == doctest::Approx(0.0).epsilon(0.0001));
+}
+
+
+
+TEST_CASE("make_rotation_mat2 - Negative Winkel (Rotation gegen Uhrzeigersinn)")
+{
+    double phi = -3.141592653589793 / 2.0; // -90°
+    buw::Mat2 rot = buw::make_rotation_mat2(phi);
+
+    buw::Vec2 v{1.0f, 0.0f};
+    buw::Vec2 result = rot * v;
+
+    // Rotation von (1,0) um -90° ergibt (0,-1)
+    CHECK(result.x == doctest::Approx(0.0f).epsilon(0.0001));
+    CHECK(result.y == doctest::Approx(-1.0f).epsilon(0.0001));
+}
+
+
 int main(int argc, char *argv[])
 {
   doctest::Context ctx;

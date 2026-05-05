@@ -21,6 +21,8 @@ namespace buw {
 
 	Mat2 operator*(Mat2 const& m1, Mat2 const& m2); //frei funktion
 
+	Vec2 operator*(Mat2 const& m, Vec2 const& v);
+	Mat2 make_rotation_mat2(double phi);
 
 }
 

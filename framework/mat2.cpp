@@ -1,5 +1,7 @@
 #include "mat2.hpp"
 
+#include <cmath>
+
 namespace buw {
 
 	//write your member function and free function definitions for A2.5 and A2.6 here (within the buw namespace}
@@ -26,6 +28,35 @@ namespace buw {
 		Mat2 result = m1;
 		result *= m2;
 		return result;
+	}
+
+	Vec2 operator*(Mat2 const& m, Vec2 const& v)
+	{
+		// Matrix-Vektor-Multiplikation:
+		// [m.e_00  m.e_10]   [v.x]   [m.e_00 * v.x + m.e_10 * v.y]
+		// [m.e_01  m.e_11] * [v.y] = [m.e_01 * v.x + m.e_11 * v.y]
+
+		return Vec2(
+			static_cast<float>(m.e_00 * v.x + m.e_10 * v.y),
+			static_cast<float>(m.e_01 * v.x + m.e_11 * v.y)
+		);
+	}
+
+	Mat2 make_rotation_mat2(double phi)
+	{
+		// Rotationsmatrix für Winkel phi (im Bogenmaß):
+		// [cos(φ)  -sin(φ)]
+		// [sin(φ)   cos(φ)]
+
+		double cos_phi = std::cos(phi);
+		double sin_phi = std::sin(phi);
+
+		return Mat2{
+			cos_phi,   // e_00
+			-sin_phi,  // e_10
+			sin_phi,   // e_01
+			cos_phi    // e_11
+		};
 	}
 
 }
