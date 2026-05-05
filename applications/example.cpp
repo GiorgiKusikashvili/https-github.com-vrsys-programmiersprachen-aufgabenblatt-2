@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
       if (thickness <= 1.0) increasing = true;
     }
 
-    // Zeichne mit unterschiedlichen Dicken
+    //  Zeichne mit unterschiedlichen Dicken
     rectangle.draw(win, thickness);
     circle.draw(win, thickness * 0.8);
 
