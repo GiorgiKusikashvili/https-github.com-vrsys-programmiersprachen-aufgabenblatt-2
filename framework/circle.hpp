@@ -18,6 +18,7 @@ namespace buw {
 
         double circumference() const;
         void draw(Window& window) const;
+        void draw(Window& window, double thickness) const;// überladene Methode
         
         // Öffentliche Attribute weil wir keine Getter/Setter brauchen
         Vec2 center;

@@ -33,7 +33,13 @@ namespace buw {
         double height = max.y - min.y;
         return 2.0 * (width + height);
     }
+
     void Rectangle::draw(Window& window) const
+    {
+        draw(window, 2.0);  // Default Dicke = 2.0
+    }
+
+    void Rectangle::draw(Window& window, double thickness) const
     {
         // Zeichne die vier Seiten des Rechtecks
         // Obere Kante

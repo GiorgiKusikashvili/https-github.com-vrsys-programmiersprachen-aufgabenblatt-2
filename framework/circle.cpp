@@ -31,6 +31,10 @@ namespace buw {
     }
     void Circle::draw(Window& window) const
     {
+        draw(window, 2.0);  // Default Dicke = 2.0
+    }
+    void Circle::draw(Window& window , double thickness) const
+    {
         const int segments = 36;
         double angle_step = 2.0 * M_PI / segments;
 
