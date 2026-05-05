@@ -12,9 +12,13 @@ namespace buw {
         Circle(Vec2 const& center, double radius);
         Circle(double center_x, double center_y, double radius);
 
+        double circumference() const;
+
         // Öffentliche Attribute weil wir keine Getter/Setter brauchen
         Vec2 center;
         double radius;
+
+
 
     };
 }

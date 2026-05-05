@@ -11,6 +11,8 @@ namespace buw {
         Rectangle(Vec2 const& min, Vec2 const& max);
         Rectangle(double min_x, double min_y, double max_x, double max_y);
 
+        double circumference() const;
+
         // Öffentliche Attribute (achsenparalleles Rechteck)
         Vec2 min;  // linke obere Ecke
         Vec2 max;  // rechte untere Ecke

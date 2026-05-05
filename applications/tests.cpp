@@ -4,6 +4,9 @@
 #include "mat2.hpp"
 #include <color.hpp>
 
+#include "circle.hpp"
+#include "rectangle.hpp"
+
 int factorial(int n)
 {
   int result = 1;
@@ -631,6 +634,24 @@ TEST_CASE("Color - Aggregatinitialisierung mit schwarzer Farbe")
 }
 
 
+//Test für das Rechteck und Kreis
+TEST_CASE("Circle::circumference")
+{
+    buw::Circle c;
+    CHECK(c.circumference() == doctest::Approx(2.0 * M_PI * 1.0));
+
+    buw::Circle c2(buw::Vec2(0.0f, 0.0f), 2.5);
+    CHECK(c2.circumference() == doctest::Approx(2.0 * M_PI * 2.5));
+}
+
+TEST_CASE("Rectangle::circumference")
+{
+    buw::Rectangle r;
+    CHECK(r.circumference() == doctest::Approx(4.0));
+
+    buw::Rectangle r2(buw::Vec2(0.0f, 0.0f), buw::Vec2(3.0f, 4.0f));
+    CHECK(r2.circumference() == doctest::Approx(14.0));
+}
 
 int main(int argc, char *argv[])
 {
