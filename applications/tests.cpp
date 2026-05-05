@@ -653,6 +653,131 @@ TEST_CASE("Rectangle::circumference")
     CHECK(r2.circumference() == doctest::Approx(14.0));
 }
 
+
+
+
+
+// Tests für Circle mit Color (Aufgabe 2.10)
+
+TEST_CASE("Circle - Standardkonstruktor mit Color")
+{
+    buw::Circle c;
+
+    CHECK(c.center.x == doctest::Approx(0.0f));
+    CHECK(c.center.y == doctest::Approx(0.0f));
+    CHECK(c.radius == doctest::Approx(1.0));
+    CHECK(c.color.r == doctest::Approx(0.5));
+    CHECK(c.color.g == doctest::Approx(0.5));
+    CHECK(c.color.b == doctest::Approx(0.5));
+}
+
+TEST_CASE("Circle - Konstruktor mit center und radius (Default-Farbe)")
+{
+    buw::Circle c(buw::Vec2(2.0f, 3.0f), 2.5);
+
+    CHECK(c.center.x == doctest::Approx(2.0f));
+    CHECK(c.center.y == doctest::Approx(3.0f));
+    CHECK(c.radius == doctest::Approx(2.5));
+    CHECK(c.color.r == doctest::Approx(0.5));
+    CHECK(c.color.g == doctest::Approx(0.5));
+    CHECK(c.color.b == doctest::Approx(0.5));
+}
+
+TEST_CASE("Circle - Konstruktor mit center, radius und Farbe")
+{
+    buw::Color red{1.0, 0.0, 0.0};
+    buw::Circle c(buw::Vec2(2.0f, 3.0f), 2.5, red);
+
+    CHECK(c.center.x == doctest::Approx(2.0f));
+    CHECK(c.center.y == doctest::Approx(3.0f));
+    CHECK(c.radius == doctest::Approx(2.5));
+    CHECK(c.color.r == doctest::Approx(1.0));
+    CHECK(c.color.g == doctest::Approx(0.0));
+    CHECK(c.color.b == doctest::Approx(0.0));
+}
+
+TEST_CASE("Circle - Konstruktor mit Koordinaten (Default-Farbe)")
+{
+    buw::Circle c(1.0, 2.0, 3.0);
+
+    CHECK(c.center.x == doctest::Approx(1.0f));
+    CHECK(c.center.y == doctest::Approx(2.0f));
+    CHECK(c.radius == doctest::Approx(3.0));
+    CHECK(c.color.r == doctest::Approx(0.5));
+}
+
+
+
+
+// Tests für Rectangle mit Color (Aufgabe 2.10)
+
+TEST_CASE("Rectangle - Standardkonstruktor mit Color")
+{
+    buw::Rectangle r;
+
+    CHECK(r.min.x == doctest::Approx(0.0f));
+    CHECK(r.min.y == doctest::Approx(0.0f));
+    CHECK(r.max.x == doctest::Approx(1.0f));
+    CHECK(r.max.y == doctest::Approx(1.0f));
+    CHECK(r.color.r == doctest::Approx(0.5));
+    CHECK(r.color.g == doctest::Approx(0.5));
+    CHECK(r.color.b == doctest::Approx(0.5));
+}
+
+TEST_CASE("Rectangle - Konstruktor mit min, max (Default-Farbe)")
+{
+    buw::Vec2 min(1.0f, 2.0f);
+    buw::Vec2 max(5.0f, 7.0f);
+    buw::Rectangle r(min, max);
+
+    CHECK(r.min.x == doctest::Approx(1.0f));
+    CHECK(r.min.y == doctest::Approx(2.0f));
+    CHECK(r.max.x == doctest::Approx(5.0f));
+    CHECK(r.max.y == doctest::Approx(7.0f));
+    CHECK(r.color.r == doctest::Approx(0.5));
+}
+
+TEST_CASE("Rectangle - Konstruktor mit min, max und Farbe")
+{
+    buw::Vec2 min(1.0f, 2.0f);
+    buw::Vec2 max(5.0f, 7.0f);
+    buw::Color green{0.0, 1.0, 0.0};
+    buw::Rectangle r(min, max, green);
+
+    CHECK(r.min.x == doctest::Approx(1.0f));
+    CHECK(r.min.y == doctest::Approx(2.0f));
+    CHECK(r.max.x == doctest::Approx(5.0f));
+    CHECK(r.max.y == doctest::Approx(7.0f));
+    CHECK(r.color.r == doctest::Approx(0.0));
+    CHECK(r.color.g == doctest::Approx(1.0));
+    CHECK(r.color.b == doctest::Approx(0.0));
+}
+
+TEST_CASE("Rectangle - Konstruktor mit Koordinaten (Default-Farbe)")
+{
+    buw::Rectangle r(1.0, 2.0, 5.0, 7.0);
+
+    CHECK(r.min.x == doctest::Approx(1.0f));
+    CHECK(r.min.y == doctest::Approx(2.0f));
+    CHECK(r.max.x == doctest::Approx(5.0f));
+    CHECK(r.max.y == doctest::Approx(7.0f));
+    CHECK(r.color.r == doctest::Approx(0.5));
+}
+
+TEST_CASE("Rectangle - Konstruktor mit Koordinaten und Farbe")
+{
+    buw::Color yellow{1.0, 1.0, 0.0};
+    buw::Rectangle r(1.0, 2.0, 5.0, 7.0, yellow);
+
+    CHECK(r.min.x == doctest::Approx(1.0f));
+    CHECK(r.min.y == doctest::Approx(2.0f));
+    CHECK(r.max.x == doctest::Approx(5.0f));
+    CHECK(r.max.y == doctest::Approx(7.0f));
+    CHECK(r.color.r == doctest::Approx(1.0));
+    CHECK(r.color.g == doctest::Approx(1.0));
+    CHECK(r.color.b == doctest::Approx(0.0));
+}
+
 int main(int argc, char *argv[])
 {
   doctest::Context ctx;

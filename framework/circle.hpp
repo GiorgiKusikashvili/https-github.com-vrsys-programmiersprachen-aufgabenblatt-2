@@ -1,6 +1,7 @@
 #ifndef BUW_CIRCLE_HPP
 #define BUW_CIRCLE_HPP
 #include "vec2.hpp"
+#include "color.hpp"
 
 namespace buw {
 
@@ -11,13 +12,15 @@ namespace buw {
         Circle();
         Circle(Vec2 const& center, double radius);
         Circle(double center_x, double center_y, double radius);
+        Circle(double center_x, double center_y, double radius, Color const& color);
+        Circle(Vec2 const& center, double radius, Color const& color);
 
         double circumference() const;
 
         // Öffentliche Attribute weil wir keine Getter/Setter brauchen
         Vec2 center;
         double radius;
-
+        Color color;
 
 
     };
