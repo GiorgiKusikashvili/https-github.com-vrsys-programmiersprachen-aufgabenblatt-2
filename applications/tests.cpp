@@ -411,6 +411,7 @@ TEST_CASE("Mat2 - operator* (freie Funktion) mit negativen Werten")
 
 TEST_CASE("Mat2 - operator* mit zwei negativen Matrizen (Minus * Minus = Plus)")
 {
+
     buw::Mat2 a{-2.0, -1.0, -3.0, -2.0};
     buw::Mat2 b{-1.0, -2.0, -3.0, -4.0};
 
