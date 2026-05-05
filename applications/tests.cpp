@@ -778,6 +778,127 @@ TEST_CASE("Rectangle - Konstruktor mit Koordinaten und Farbe")
     CHECK(r.color.b == doctest::Approx(0.0));
 }
 
+
+
+
+// Tests für Circle::is_inside (Aufgabe 2.13)
+
+TEST_CASE("Circle::is_inside - Punkt im Mittelpunkt")
+{
+    buw::Circle c(buw::Vec2(5.0f, 5.0f), 3.0);
+    buw::Vec2 point(5.0f, 5.0f);
+
+    CHECK(c.is_inside(point) == true);
+}
+
+TEST_CASE("Circle::is_inside - Punkt auf Kreisrand")
+{
+    buw::Circle c(buw::Vec2(0.0f, 0.0f), 5.0);
+    buw::Vec2 point(5.0f, 0.0f);
+
+    CHECK(c.is_inside(point) == true);
+}
+
+TEST_CASE("Circle::is_inside - Punkt innerhalb")
+{
+    buw::Circle c(buw::Vec2(0.0f, 0.0f), 10.0);
+    buw::Vec2 point(6.0f, 6.0f);  // Abstand ~8.48 < 10
+
+    CHECK(c.is_inside(point) == true);
+}
+
+TEST_CASE("Circle::is_inside - Punkt außerhalb")
+{
+    buw::Circle c(buw::Vec2(0.0f, 0.0f), 5.0);
+    buw::Vec2 point(4.0f, 4.0f);  // Abstand ~5.66 > 5
+
+    CHECK(c.is_inside(point) == false);
+}
+
+TEST_CASE("Circle::is_inside - Punkt weit außerhalb")
+{
+    buw::Circle c(buw::Vec2(10.0f, 10.0f), 2.0);
+    buw::Vec2 point(100.0f, 100.0f);
+
+    CHECK(c.is_inside(point) == false);
+}
+
+
+
+// Tests für Rectangle::is_inside (Aufgabe 2.13)
+
+TEST_CASE("Rectangle::is_inside - Punkt in der Mitte")
+{
+    buw::Rectangle r(buw::Vec2(0.0f, 0.0f), buw::Vec2(10.0f, 10.0f));
+    buw::Vec2 point(5.0f, 5.0f);
+
+    CHECK(r.is_inside(point) == true);
+}
+
+TEST_CASE("Rectangle::is_inside - Punkt auf linker Kante")
+{
+    buw::Rectangle r(buw::Vec2(2.0f, 2.0f), buw::Vec2(8.0f, 8.0f));
+    buw::Vec2 point(2.0f, 5.0f);
+
+    CHECK(r.is_inside(point) == true);
+}
+
+TEST_CASE("Rectangle::is_inside - Punkt auf unterer Kante")
+{
+    buw::Rectangle r(buw::Vec2(2.0f, 2.0f), buw::Vec2(8.0f, 8.0f));
+    buw::Vec2 point(5.0f, 8.0f);
+
+    CHECK(r.is_inside(point) == true);
+}
+
+TEST_CASE("Rectangle::is_inside - Punkt in Ecke")
+{
+    buw::Rectangle r(buw::Vec2(1.0f, 1.0f), buw::Vec2(5.0f, 5.0f));
+    buw::Vec2 point(1.0f, 1.0f);
+
+    CHECK(r.is_inside(point) == true);
+}
+
+TEST_CASE("Rectangle::is_inside - Punkt knapp innerhalb")
+{
+    buw::Rectangle r(buw::Vec2(0.0f, 0.0f), buw::Vec2(10.0f, 10.0f));
+    buw::Vec2 point(9.9f, 9.9f);
+
+    CHECK(r.is_inside(point) == true);
+}
+
+TEST_CASE("Rectangle::is_inside - Punkt außerhalb (links)")
+{
+    buw::Rectangle r(buw::Vec2(2.0f, 2.0f), buw::Vec2(8.0f, 8.0f));
+    buw::Vec2 point(1.0f, 5.0f);
+
+    CHECK(r.is_inside(point) == false);
+}
+
+TEST_CASE("Rectangle::is_inside - Punkt außerhalb (rechts)")
+{
+    buw::Rectangle r(buw::Vec2(2.0f, 2.0f), buw::Vec2(8.0f, 8.0f));
+    buw::Vec2 point(9.0f, 5.0f);
+
+    CHECK(r.is_inside(point) == false);
+}
+
+TEST_CASE("Rectangle::is_inside - Punkt außerhalb (oben)")
+{
+    buw::Rectangle r(buw::Vec2(2.0f, 2.0f), buw::Vec2(8.0f, 8.0f));
+    buw::Vec2 point(5.0f, 1.0f);
+
+    CHECK(r.is_inside(point) == false);
+}
+
+TEST_CASE("Rectangle::is_inside - Punkt außerhalb (unten)")
+{
+    buw::Rectangle r(buw::Vec2(2.0f, 2.0f), buw::Vec2(8.0f, 8.0f));
+    buw::Vec2 point(5.0f, 9.0f);
+
+    CHECK(r.is_inside(point) == false);
+}
+
 int main(int argc, char *argv[])
 {
   doctest::Context ctx;

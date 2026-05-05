@@ -20,7 +20,8 @@ namespace buw {
         double circumference() const;
         void draw(Window& window) const;
         void draw(Window& window, double thickness) const;  // überladene Methode
-
+        bool is_inside(Vec2 const& point) const;
+        
         // Öffentliche Attribute
         Vec2 min;  // linke obere Ecke
         Vec2 max;  // rechte untere Ecke

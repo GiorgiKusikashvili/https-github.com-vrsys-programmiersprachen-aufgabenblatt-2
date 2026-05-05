@@ -51,4 +51,10 @@ namespace buw {
         // Linke Kante
         window.draw_line(min.x, max.y, min.x, min.y, color.r, color.g, color.b, 2.0);
     }
+    bool Rectangle::is_inside(Vec2 const& point) const
+    {
+
+        return (point.x >= min.x && point.x <= max.x &&
+                point.y >= min.y && point.y <= max.y);
+    }
 }

@@ -55,6 +55,18 @@ namespace buw {
             y1 = y2;
         }
     }
+
+    bool Circle::is_inside(Vec2 const& point) const
+    {
+        // Abstand von Mittelpunkt zum Punkt
+        float dx = point.x - center.x;
+        float dy = point.y - center.y;
+        float distance_squared = dx * dx + dy * dy;
+        float radius_squared = static_cast<float>(radius * radius);
+
+        // Punkt ist innerhalb wenn Abstand <= Radius
+        return distance_squared <= radius_squared;
+    }
 }
 
 
